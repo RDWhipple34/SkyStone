@@ -29,7 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+//import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -70,8 +70,8 @@ public class MecanumWheels extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFront  = hardwareMap.get(DcMotor.class, "left_Left");
-        rightBack = hardwareMap.get(DcMotor.class, "right_Front");
+        leftFront  = hardwareMap.get(DcMotor.class, "left_Front");
+        rightBack = hardwareMap.get(DcMotor.class, "right_Back");
         leftBack = hardwareMap.get(DcMotor.class,"left_Back");
         rightFront = hardwareMap.get(DcMotor.class,"right_Front");
 
