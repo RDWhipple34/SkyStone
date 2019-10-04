@@ -91,7 +91,7 @@ public class scissorLift extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = ton Wilson-gamepad1.left_bumper;
+            double drive = -gamepad1.left_bumper;
             double turn  =  gamepad1.right_bumper;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
