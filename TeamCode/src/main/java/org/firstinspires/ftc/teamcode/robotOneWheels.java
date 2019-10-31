@@ -73,7 +73,7 @@ public class robotOneWheels extends LinearOpMode {
 
             if ( move >= -1 && move < 0 ) {
                 leftDrive.setDirection(RevRoboticsCoreHexMotor.Direction.REVERSE);
-                rightDrive.setDirection(RevRoboticsCoreHexMotor.Direction.FORWARD);
+                rightDrive.setDirection(RevRoboticsCoreHexMotor..FORWARD);
                 leftDrive.setPower(move);
                 rightDrive.setPower(move);
 
