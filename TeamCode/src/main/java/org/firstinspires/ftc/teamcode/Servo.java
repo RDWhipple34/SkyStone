@@ -54,7 +54,7 @@ public class Servo extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private Servo = null;
+    private Servo Servo;
     //private DcMotor rightDrive = null;
 
     @Override
@@ -88,8 +88,8 @@ public class Servo extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            boolean forward = gamepad1.y;
-            boolean reverse = gamepad1.a;
+            boolean Clockwise = gamepad1.right_bumper;
+            boolean Counterwise = gamepad1.left_bumper;
            // double turn  =  gamepad1.right_stick_x;//leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
            // rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
@@ -102,17 +102,12 @@ public class Servo extends LinearOpMode {
             //leftDrive.setPower(leftPower);
             //rightDrive.setPower(rightPower);
 
-            if ( forward == true ) {
-                InAndOut.setDirection(DcMotor.Direction.FORWARD);
-                InAndOut.setPower(.1);
-                sleep(300);
-                InAndOut.setPower(0);
-            } else if (reverse == true ) {
-                InAndOut.setDirection(DcMotor.Direction.REVERSE);
-                InAndOut.setPower(.1);
-                sleep(300);
-                InAndOut.setPower(0);
+            if(Clockwise == true)
+                Servo.
             }
+
+            if(Counterwise == true)
+                Servo.setposition(0.0)
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
