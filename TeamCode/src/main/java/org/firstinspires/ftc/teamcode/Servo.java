@@ -54,7 +54,7 @@ public class Servo extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private Servo Servo;
+    private Servo Serv;
     //private DcMotor rightDrive = null;
 
     @Override
@@ -64,7 +64,7 @@ public class Servo extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        InAndOut = hardwareMap.get(DcMotor.class, "InAndOut");
+        Serv = hardwareMap.get(Servo.class, "Servo");
         //rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -88,8 +88,8 @@ public class Servo extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            boolean Clockwise = gamepad1.right_bumper;
-            boolean Counterwise = gamepad1.left_bumper;
+            boolean Clock = gamepad1.right_bumper;
+            boolean Cclock = gamepad1.left_bumper;
            // double turn  =  gamepad1.right_stick_x;//leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
            // rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
@@ -102,12 +102,12 @@ public class Servo extends LinearOpMode {
             //leftDrive.setPower(leftPower);
             //rightDrive.setPower(rightPower);
 
-            if(Clockwise == true)
-                Servo.
+            if(Clock == true)
+                Serv.setPosition(1.0);
             }
 
-            if(Counterwise == true)
-                Servo.setposition(0.0)
+            if(Cclock == true)
+                Serv(0.0)
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
