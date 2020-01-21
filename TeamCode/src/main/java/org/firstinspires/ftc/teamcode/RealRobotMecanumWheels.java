@@ -41,151 +41,166 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Mecanumy", group = "RealRobotMecanumWheels")
+@TeleOp(name="Mecanumy", group = "")
 //@Disabled
 public class RealRobotMecanumWheels extends LinearOpMode {
 
-    public Servo servoR = null;
-    public Servo servoL = null;
+
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
     private DcMotor leftBack = null;
     private DcMotor rightBack = null;
+    private DcMotor InAndOut = null;
+    int i = 0;
+    int I = 0;
+    double lf = .57;
 
     @Override
     public void runOpMode() {
         telemetry.addData("status", "Initialized");
         telemetry.update();
 
-        servoR = hardwareMap.get(Servo.class, "rightServ");
-        servoL = hardwareMap.get(Servo.class, "leftServ");
+
         leftFront = hardwareMap.get(DcMotor.class, "left_front");
         leftBack = hardwareMap.get(DcMotor.class, "left_back");
         rightFront = hardwareMap.get(DcMotor.class, "right_front");
         rightBack = hardwareMap.get(DcMotor.class, "right_back");
+        InAndOut = hardwareMap.get(DcMotor.class, "inandout");
 
-        //leftFront.setDirection(DcMotor.Direction.FORWARD);
-        //leftBack.setDirection(DcMotor.Direction.FORWARD);
-        //rightFront.setDirection(DcMotor.Direction.REVERSE);
-        //rightBack.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        double move = gamepad1.left_stick_y;
-
-        double tank = gamepad1.right_stick_x;
-        double slide = gamepad1.left_stick_x;
+        InAndOut.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
         runtime.reset();
 
-        servoL.setPosition(1);
-        servoR.setPosition(0);
-
-            while (opModeIsActive()) {
 
 
-                //starting position for left is 1
-                //starting position for right is 0
-                //left will get set down for going forward
-                // right will get set up for going forward\
-                if (gamepad2.a) {
-                    //A is start position
-                    servoL.setPosition(1);
-                    servoR.setPosition(0);
-                }
+        while (opModeIsActive()) {
+            Drive();
+            MoveArmIn();
+            MoveArmOut();
 
-                if (gamepad2.y) {
-                    //Y is to go out
-                    servoL.setPosition(0.3);
-                    servoR.setPosition(0.7);
-                }
+            // move forward
+            //if ( move >= -1 && move < 0 ) {
 
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            //telemetry.addData("Motors", "left (%.2f), right (%.2f)", InAndOut);
+            telemetry.update();
 
-                // move forward
-                //if ( move >= -1 && move < 0 ) {
-                if (gamepad1.dpad_up) {
-                    leftFront.setDirection(DcMotor.Direction.REVERSE);
-                    leftBack.setDirection(DcMotor.Direction.REVERSE);
-                    rightFront.setDirection(DcMotor.Direction.FORWARD);
-                    rightBack.setDirection(DcMotor.Direction.FORWARD);
-                    leftFront.setPower(1);
-                    rightFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightBack.setPower(1);
-                }
-                //move backwards
-                else if (gamepad1.dpad_down) {
-                    leftFront.setDirection(DcMotor.Direction.FORWARD);
-                    leftBack.setDirection(DcMotor.Direction.FORWARD);
-                    rightFront.setDirection(DcMotor.Direction.REVERSE);
-                    rightBack.setDirection(DcMotor.Direction.REVERSE);
-                    leftFront.setPower(1);
-                    rightFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightBack.setPower(1);
-                }
-                //turn tank right
-                else if (gamepad1.dpad_right) {
-                    leftFront.setDirection(DcMotor.Direction.REVERSE);
-                    leftBack.setDirection(DcMotor.Direction.REVERSE);
-                    rightFront.setDirection(DcMotor.Direction.REVERSE);
-                    rightBack.setDirection(DcMotor.Direction.REVERSE);
-                    leftFront.setPower(1);
-                    rightFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightBack.setPower(1);
-                }
-                //turn tank left
-                else if (gamepad1.dpad_left) {
-                    leftFront.setDirection(DcMotor.Direction.FORWARD);
-                    leftBack.setDirection(DcMotor.Direction.FORWARD);
-                    rightFront.setDirection(DcMotor.Direction.FORWARD);
-                    rightBack.setDirection(DcMotor.Direction.FORWARD);
-                    leftFront.setPower(1);
-                    rightFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightBack.setPower(1);
-                } else if (-gamepad1.right_stick_x == 1) {
-                    leftBack.setDirection(DcMotor.Direction.REVERSE);
-                    leftFront.setDirection(DcMotor.Direction.FORWARD);
-                    rightBack.setDirection(DcMotor.Direction.REVERSE);
-                    rightFront.setDirection(DcMotor.Direction.FORWARD);
-                    leftFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightFront.setPower(1);
-                    rightBack.setPower(1);
-                } else if (gamepad1.right_stick_x == 1) {
-                    leftBack.setDirection(DcMotor.Direction.FORWARD);
-                    leftFront.setDirection(DcMotor.Direction.REVERSE);
-                    rightBack.setDirection(DcMotor.Direction.FORWARD);
-                    rightFront.setDirection(DcMotor.Direction.REVERSE);
-                    leftFront.setPower(1);
-                    leftBack.setPower(1);
-                    rightFront.setPower(1);
-                    rightBack.setPower(1);
-                } else {
-                    leftFront.setPower(0);
-                    leftBack.setPower(0);
-                    rightFront.setPower(0);
-                    rightBack.setPower(0);
-                }
-                // Show the elapsed game time and wheel power.
-                telemetry.addData("Status", "Run Time: " + runtime.toString());
-                //telemetry.addData("Motors", "left (%.2f), right (%.2f)", InAndOut);
-                telemetry.update();
-//            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x)
-//            double
-//            double rightx
-//            double leftx
-//            double lefty
-//            final double v1 =
-//            final double v2 =
-//            final double v3 =
-//            final double v4 =
-            }
         }
     }
+    public void MoveArmOut() {
+        Drive();
+        if (gamepad2.y) {
+            Drive();
+            while (gamepad2.y){
+                InAndOut.setPower(0.4);
+            }
+            i=0;
+            while (i < 35) {
+                Drive();
+                InAndOut.setPower(0);
+                sleep(10);
+                InAndOut.setPower(-0.09);
+                sleep(15);
+                i++;
+            }
+        }
+
+    }
+
+    public void MoveArmIn() {
+        Drive();
+        if (gamepad2.a) {
+            Drive();
+            while (gamepad2.a){
+                InAndOut.setPower(-0.4);
+            }
+            I=0;
+            while (I < 35) {
+                Drive();
+                InAndOut.setPower(0);
+                sleep(10);
+                InAndOut.setPower(0.09);
+                sleep(15);
+                I++;
+            }
+        }
+
+    }
+
+    public void Drive() {
+
+        if (gamepad1.dpad_up) {
+            leftFront.setDirection(DcMotor.Direction.REVERSE);
+            leftBack.setDirection(DcMotor.Direction.REVERSE);
+            rightFront.setDirection(DcMotor.Direction.FORWARD);
+            rightBack.setDirection(DcMotor.Direction.FORWARD);
+            leftFront.setPower(lf);
+            rightFront.setPower(1);
+            leftBack.setPower(1);
+            rightBack.setPower(1);
+        }
+        //move backwards
+        else if (gamepad1.dpad_down) {
+            leftFront.setDirection(DcMotor.Direction.FORWARD);
+            leftBack.setDirection(DcMotor.Direction.FORWARD);
+            rightFront.setDirection(DcMotor.Direction.REVERSE);
+            rightBack.setDirection(DcMotor.Direction.REVERSE);
+            leftFront.setPower(lf);
+            rightFront.setPower(1);
+            leftBack.setPower(1);
+            rightBack.setPower(1);
+        }
+        //turn tank right
+        else if (gamepad1.dpad_right) {
+            leftFront.setDirection(DcMotor.Direction.REVERSE);
+            leftBack.setDirection(DcMotor.Direction.REVERSE);
+            rightFront.setDirection(DcMotor.Direction.REVERSE);
+            rightBack.setDirection(DcMotor.Direction.REVERSE);
+            leftFront.setPower(lf);
+            rightFront.setPower(1);
+            leftBack.setPower(1);
+            rightBack.setPower(1);
+        }
+        //turn tank left
+        else if (gamepad1.dpad_left) {
+            leftFront.setDirection(DcMotor.Direction.FORWARD);
+            leftBack.setDirection(DcMotor.Direction.FORWARD);
+            rightFront.setDirection(DcMotor.Direction.FORWARD);
+            rightBack.setDirection(DcMotor.Direction.FORWARD);
+            leftFront.setPower(lf);
+            rightFront.setPower(1);
+            leftBack.setPower(1);
+            rightBack.setPower(1);
+        } else if (-gamepad1.right_stick_x == 1) {
+            leftBack.setDirection(DcMotor.Direction.REVERSE);
+            leftFront.setDirection(DcMotor.Direction.FORWARD);
+            rightBack.setDirection(DcMotor.Direction.REVERSE);
+            rightFront.setDirection(DcMotor.Direction.FORWARD);
+            leftFront.setPower(lf);
+            leftBack.setPower(1);
+            rightFront.setPower(1);
+            rightBack.setPower(1);
+        } else if (gamepad1.right_stick_x == 1) {
+            leftBack.setDirection(DcMotor.Direction.FORWARD);
+            leftFront.setDirection(DcMotor.Direction.REVERSE);
+            rightBack.setDirection(DcMotor.Direction.FORWARD);
+            rightFront.setDirection(DcMotor.Direction.REVERSE);
+            leftFront.setPower(lf);
+            leftBack.setPower(1);
+            rightFront.setPower(1);
+            rightBack.setPower(1);
+        } else {
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
+        }
+    }
+}
