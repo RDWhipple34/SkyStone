@@ -427,4 +427,11 @@ public class VuforiaSetup extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
+
+    public void moveplate() {
+
+
+
+    }
+
 }
