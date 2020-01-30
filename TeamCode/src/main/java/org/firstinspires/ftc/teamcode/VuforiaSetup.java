@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -314,6 +315,26 @@ public class VuforiaSetup extends LinearOpMode {
                         //Blue Building
                         quad = "q1";
                         turn = "right";
+
+                        //1-slide right until y<39
+                        leftBack.setDirection(DcMotor.Direction.FORWARD);
+                        leftFront.setDirection(DcMotor.Direction.REVERSE);
+                        rightBack.setDirection(DcMotor.Direction.FORWARD);
+                        rightFront.setDirection(DcMotor.Direction.REVERSE);
+                        leftFront.setPower(lf);
+                        leftBack.setPower(1);
+                        rightFront.setPower(1);
+                        rightBack.setPower(1);
+                        //2-forward until x > 50
+                        //3-Tank 90degrees // Xamount of time
+                        //4-Drive forward until touching plate for Xamount of time
+                        //5-engage hooks
+                        //6-Reverse and turn right for Xamount of time
+                        //7-Drive forward for Xamount of time
+                        //8-Unengage hooks
+
+
+
                     } else if((trackable.getName().equals("Red Perimeter 2") && quad == null)
                             || (trackable.getName().equals("Front Perimeter 2") && quad == null)) {
                         //Blue Loading
