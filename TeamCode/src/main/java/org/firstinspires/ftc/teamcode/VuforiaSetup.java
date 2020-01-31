@@ -92,6 +92,12 @@ public class VuforiaSetup extends LinearOpMode {
     //public String vuforiaLicenseKey = "empty";
     private String quad           = null;
     private String turn           = null;
+    double lf = .57;
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftBack = null;
+    private DcMotor rightBack = null;
+
 
     @Override public void runOpMode() {
         /*
@@ -315,16 +321,17 @@ public class VuforiaSetup extends LinearOpMode {
                         //Blue Building
                         quad = "q1";
                         turn = "right";
-
+                        while ()
                         //1-slide right until y<39
                         leftBack.setDirection(DcMotor.Direction.FORWARD);
                         leftFront.setDirection(DcMotor.Direction.REVERSE);
                         rightBack.setDirection(DcMotor.Direction.FORWARD);
                         rightFront.setDirection(DcMotor.Direction.REVERSE);
-                        leftFront.setPower(lf);
+                        leftFront.setPower(1);
                         leftBack.setPower(1);
                         rightFront.setPower(1);
                         rightBack.setPower(1);
+
                         //2-forward until x > 50
                         //3-Tank 90degrees // Xamount of time
                         //4-Drive forward until touching plate for Xamount of time
