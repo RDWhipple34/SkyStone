@@ -321,17 +321,20 @@ public class VuforiaSetup extends LinearOpMode {
                         //Blue Building
                         quad = "q1";
                         turn = "right";
-                        while ()
-                        //1-slide right until y<39
-                        leftBack.setDirection(DcMotor.Direction.FORWARD);
-                        leftFront.setDirection(DcMotor.Direction.REVERSE);
-                        rightBack.setDirection(DcMotor.Direction.FORWARD);
-                        rightFront.setDirection(DcMotor.Direction.REVERSE);
-                        leftFront.setPower(1);
-                        leftBack.setPower(1);
-                        rightFront.setPower(1);
-                        rightBack.setPower(1);
+                        VectorF q1t = robotOne.lastLocation.getTranslation();
+                        float q1y = q1t.get(1) / robotOne.mmPerInch;
 
+                        while (q1y < 39 ) {
+                            //1-slide right until y<39
+                            leftBack.setDirection(DcMotor.Direction.FORWARD);
+                            leftFront.setDirection(DcMotor.Direction.REVERSE);
+                            rightBack.setDirection(DcMotor.Direction.FORWARD);
+                            rightFront.setDirection(DcMotor.Direction.REVERSE);
+                            leftFront.setPower(1);
+                            leftBack.setPower(1);
+                            rightFront.setPower(1);
+                            rightBack.setPower(1);
+                        }
                         //2-forward until x > 50
                         //3-Tank 90degrees // Xamount of time
                         //4-Drive forward until touching plate for Xamount of time
