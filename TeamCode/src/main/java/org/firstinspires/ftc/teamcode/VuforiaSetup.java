@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -91,6 +92,13 @@ public class VuforiaSetup extends LinearOpMode {
     //public String vuforiaLicenseKey = "empty";
     private String quad           = null;
     private String turn           = null;
+    double lf = .57;
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftBack = null;
+    private DcMotor rightBack = null;
+
+
 
     @Override public void runOpMode() {
         /*
@@ -314,6 +322,30 @@ public class VuforiaSetup extends LinearOpMode {
                         //Blue Building
                         quad = "q1";
                         turn = "right";
+			VectorF q1t = robotOne.lastLocation.getTranslation();
+                        float q1y = q1t.get(1) / robotOne.mmPerInch;
+
+                        while (q1y < 39 ) {
+                            //1-slide right until y<39
+                            leftBack.setDirection(DcMotor.Direction.FORWARD);
+                            leftFront.setDirection(DcMotor.Direction.REVERSE);
+                            rightBack.setDirection(DcMotor.Direction.FORWARD);
+                            rightFront.setDirection(DcMotor.Direction.REVERSE);
+                            leftFront.setPower(1);
+                            leftBack.setPower(1);
+                            rightFront.setPower(1);
+                            rightBack.setPower(1);
+                        }
+                        //2-forward until x > 50
+                        //3-Tank 90degrees // Xamount of time
+                        //4-Drive forward until touching plate for Xamount of time
+                        //5-engage hooks
+                        //6-Reverse and turn right for Xamount of time
+                        //7-Drive forward for Xamount of time
+                        //8-Unengage hooks
+
+
+
                     } else if((trackable.getName().equals("Red Perimeter 2") && quad == null)
                             || (trackable.getName().equals("Front Perimeter 2") && quad == null)) {
                         //Blue Loading
@@ -426,5 +458,10 @@ public class VuforiaSetup extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
+    }
+        public void moveplate() {
+
+
+
     }
 }
