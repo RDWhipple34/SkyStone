@@ -89,6 +89,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Disabled
 public class VuforiaSetup extends LinearOpMode {
     RobotOneHardware robotOne           = new RobotOneHardware();
+    RedAuto redAutoColor                = new RedAuto();
+    BlueAuto blueAutoColor              =new BlueAuto();
     //public String vuforiaLicenseKey = "empty";
     private String quad           = null;
     private String turn           = null;
@@ -337,10 +339,10 @@ public class VuforiaSetup extends LinearOpMode {
                             rightBack.setPower(1);
                         }
                         //2-forward until x > 50
-                        //3-Tank 90degrees // Xamount of time
+                        //3-Tank left 90degrees // Xamount of time
                         //4-Drive forward until touching plate for Xamount of time
                         //5-engage hooks
-                        //6-Reverse and turn right for Xamount of time
+                        //6-Reverse and turn left for Xamount of time
                         //7-Drive forward for Xamount of time
                         //8-Unengage hooks
 
@@ -361,6 +363,14 @@ public class VuforiaSetup extends LinearOpMode {
                         //Red Building
                         quad = "q4";
                         turn = "left";
+                        //1-slide left until y >-39
+                        //2-forward until x > 50
+                        //3-Tank right 90degrees // Xamount of time
+                        //4-Drive forward until touching plate for Xamount of time
+                        //5-engage hooks
+                        //6-Reverse and turn right for Xamount of time
+                        //7-Drive forward for Xamount of time
+                        //8-Unengage hooks
                     }
 
                     telemetry.addData("Quadrant", quad);
